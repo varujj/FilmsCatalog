@@ -1,4 +1,4 @@
-using FilmsCatalog.Data;
+using FilmsCatalog.Infrastructure.Persistence;
 using FilmsCatalog.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,9 +31,9 @@ namespace FilmsCatalog
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddDatabaseDeveloperPageExceptionFilter();            
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

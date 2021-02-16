@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using FilmsCatalog.Models;
 
-namespace FilmsCatalog.Data
+namespace FilmsCatalog.Infrastructure.Persistence
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
