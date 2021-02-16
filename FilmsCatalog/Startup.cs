@@ -1,3 +1,4 @@
+using FilmsCatalog.Domain.Entities;
 using FilmsCatalog.Infrastructure.Persistence;
 using FilmsCatalog.Models;
 using Microsoft.AspNetCore.Builder;
