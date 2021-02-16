@@ -20,6 +20,7 @@ namespace FilmsCatalog.Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new DirectorConfiguration());
+            modelBuilder.ApplyConfiguration(new FilmConfiguration());
         }
     }
 }

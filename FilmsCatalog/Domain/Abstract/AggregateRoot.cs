@@ -1,7 +1,8 @@
 ﻿namespace FilmsCatalog.Domain.Abstract
 {
-    public interface IAggregateRoot
+    public abstract class AggregateRoot
     {
         public int Id { get; set; }
+        public bool IsNew { get; set; }
     }
 }

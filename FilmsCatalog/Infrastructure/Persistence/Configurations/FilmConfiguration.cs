@@ -5,14 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FilmsCatalog.Infrastructure.Persistence.Configurations
 {
-    public class DirectorConfiguration : IEntityTypeConfiguration<Director>
+    public class FilmConfiguration : IEntityTypeConfiguration<Film>
     {
-        public void Configure(EntityTypeBuilder<Director> builder)
+        public void Configure(EntityTypeBuilder<Film> builder)
         {
             builder.AddCommonConfigs();
-
-            builder.HasIndex(x => x.Name)
-                   .IsUnique();
         }
     }
 }

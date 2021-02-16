@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FilmsCatalog.Application.Repositories;
+using FilmsCatalog.Domain.Entities;
 
 namespace FilmsCatalog.Infrastructure.Persistence
 {
-    public class FilmRepository
+    public class FilmRepository : Repository<Film>, IFilmRepository
     {
+        public FilmRepository(ApplicationDbContext context) : base(context)
+        {
+        }
     }
 }

@@ -1,5 +1,6 @@
 using FilmsCatalog.Domain.Entities;
 using FilmsCatalog.Infrastructure.Persistence;
+using FilmsCatalog.Infrastructure.Persistence.Extensions;
 using FilmsCatalog.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,7 @@ namespace FilmsCatalog
             services.AddIdentity<User, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddSqlContext();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
             services.AddRazorPages();

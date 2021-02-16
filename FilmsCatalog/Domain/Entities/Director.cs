@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FilmsCatalog.Domain.Entities
 {
-    public class Director : IAggregateRoot
+    public class Director : AggregateRoot
     {
         public int Id { get; set; }
         public string Name { get; set; }
