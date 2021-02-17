@@ -6,11 +6,6 @@
 @model FilmsCatalog.Models.FilmListViewModel
 
 <style>
-    .poster-img {
-        width: 250px;
-        height: 170px;
-    }
-
     .new-film-heading {
         margin: 20px 0;
     }
@@ -29,7 +24,6 @@
             <th>Название</th>
             <th>Режиссёр</th>
             <th>Год</th>
-            <th>Постер</th>
             <th></th>
         </tr>
     </thead>
@@ -40,13 +34,6 @@
                 <td>@film.Name</td>
                 <td>@film.DirectorName</td>
                 <td>@film.Year</td>
-                <td>
-                    @if (film.PosterUrl != null)
-                    {
-                        <img src='\@film.PosterUrl' class="poster-img" />
-                    }
-
-                </td>
                 <td>
                     <a asp-controller="Film" asp-action="Upsert" asp-route-filmId="@film.Id" class="btn btn-outline-dark">Редактировать</a>
                     <a asp-controller="Film" asp-action="Details" asp-route-filmId="@film.Id" class="btn btn-outline-info">Детали</a>
