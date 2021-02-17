@@ -8,6 +8,7 @@ namespace FilmsCatalog.Infrastructure.Persistence.Extensions
         public static IServiceCollection AddSqlContext(this IServiceCollection services)
         {
             services.AddScoped<IFilmRepository, FilmRepository>();
+            services.AddScoped<IDirectorRepository, DirectorRepository>();
 
             return services;
         }

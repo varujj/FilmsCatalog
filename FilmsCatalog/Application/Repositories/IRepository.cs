@@ -13,5 +13,6 @@ namespace FilmsCatalog.Application.Repositories
         Task<T> GetAsync(Expression<Func<T, bool>> expression);
         Task UpsertAsync(T entity);
         Task DeleteAsync(int id);
+        Task<List<T>> GetAllAsync(Expression<Func<T, bool>> expression, int take);
     }
 }

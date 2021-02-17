@@ -1,9 +1,11 @@
+using FilmsCatalog.Application.CommandExecutors;
 using FilmsCatalog.Domain.Entities;
 using FilmsCatalog.Infrastructure.Persistence;
 using FilmsCatalog.Infrastructure.Persistence.Extensions;
 using FilmsCatalog.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -35,6 +37,12 @@ namespace FilmsCatalog
             services.AddIdentity<User, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/Account/SignIn");
+            });
+
+            services.AddTransient<DirectorCommandExecutor>();
             services.AddSqlContext();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();

@@ -21,6 +21,7 @@ namespace FilmsCatalog.Infrastructure.Persistence
 
         public Task<List<T>> GetAllAsync() => Set.ToListAsync();
         public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> expression) => Set.Where(expression).ToListAsync();
+        public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> expression, int take) => Set.Where(expression).Take(take).ToListAsync();
         public Task<T> GetAsync(int id) => Set.FirstOrDefaultAsync(e => e.Id == id);
         public Task<T> GetAsync(Expression<Func<T, bool>> expression) => Set.FirstOrDefaultAsync(expression);
 
