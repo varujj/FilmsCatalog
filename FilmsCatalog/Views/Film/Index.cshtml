@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "View";
+}
+
+@model FilmsCatalog.Models.FilmListViewModel
+
+<style>
+    .poster-img {
+        width: 250px;
+        height: 170px;
+    }
+
+    .new-film-heading {
+        margin: 20px 0;
+    }
+</style>
+
+<h2>Список фильмов</h2>
+
+
+<h4 class="new-film-heading">
+    <a class="btn btn-outline-success" asp-controller="Film" asp-action="Upsert">Создать</a>
+</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Режиссёр</th>
+            <th>Год</th>
+            <th>Постер</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var film in Model.Films)
+        {
+            <tr>
+                <td>@film.Name</td>
+                <td>@film.DirectorName</td>
+                <td>@film.Year</td>
+                <td>
+                    @if (film.PosterUrl != null)
+                    {
+                        <img src='\@film.PosterUrl' class="poster-img" />
+                    }
+
+                </td>
+                <td>
+                    <a asp-controller="Film" asp-action="Upsert" asp-route-filmId="@film.Id" class="btn btn-outline-dark">Редактировать</a>
+                    <a asp-controller="Film" asp-action="Details" asp-route-filmId="@film.Id" class="btn btn-outline-info">Детали</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<partial name="~/Views/Shared/_PagingPartial.cshtml" model="Model" />
+

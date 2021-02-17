@@ -20,14 +20,11 @@ namespace FilmsCatalog.Application.Extensions
         {
             var result = source;
 
-            if (query.Offset != default)
-            {
-                result = result.Skip(query.Offset);
-            }
-            if (query.Count != default)
-            {
-                result = result.Take(query.Count);
-            }
+            if (query.CurrentPage == 0)
+                query.CurrentPage = 1;
+
+            result = result.Skip((query.CurrentPage - 1) * query.PageSize)
+                           .Take(query.PageSize);
 
             return result;
         }

@@ -1,7 +1,9 @@
 ﻿using FilmsCatalog.Application.CommandExecutors;
 using FilmsCatalog.Application.Dtos;
 using FilmsCatalog.Application.Extensions;
+using FilmsCatalog.Application.Querying;
 using FilmsCatalog.Application.Validators;
+using FilmsCatalog.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ namespace FilmsCatalog.Controllers
     public class FilmController : Controller
     {
         private readonly FilmCommandExecutor _commandExecutor;
+        private const int PAGE_SIZE = 2;
 
         public FilmController(FilmCommandExecutor commandExecutor)
         {
@@ -20,9 +23,21 @@ namespace FilmsCatalog.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery]EntityQuery query)
         {
-            return View("Upsert", filmDto);
+            query.PageSize = PAGE_SIZE;
+
+            var queryResult = await _commandExecutor.GetFilmsByQuery(query);
+
+            var viewModel = new FilmListViewModel
+            {
+                Films = queryResult.Data,
+                Count = queryResult.Count,
+                CurrentPage = query.CurrentPage,
+                PageSize = query.PageSize
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet("{filmId?}")]
@@ -48,7 +63,18 @@ namespace FilmsCatalog.Controllers
 
             await _commandExecutor.UpsertFilm(filmDto, this.CurrentUserId());
 
-            return View("Upsert");
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("{filmId}")]
+        public async Task<IActionResult> Details(int filmId)
+        {
+            var filmDto = await _commandExecutor.GetFilm(filmId);
+
+            if (filmDto == null)
+                return RedirectToAction("Index");
+
+            return View(filmDto);
         }
     }
 }

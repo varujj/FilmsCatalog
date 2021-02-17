@@ -21,7 +21,7 @@ namespace FilmsCatalog.Infrastructure.Persistence
 
         public Task<EntityQueryResult<Film>> GetFilmsByQuery(EntityQuery query)
         {
-            IQueryable<Film> films = _context.Films;
+            IQueryable<Film> films = _context.Films.Include(f => f.Director);
 
             return films.ApplyQueryAsync(query);
         }

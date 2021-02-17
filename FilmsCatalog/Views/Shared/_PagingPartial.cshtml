@@ -1,0 +1,38 @@
+﻿<nav>
+    <ul class="pagination">
+
+        @if (Model.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" aria-label="Предыдущий" asp-action="Index" asp-route-currentPage="@(Model.CurrentPage - 1)">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Предыдущий</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-currentPage="@(Model.CurrentPage - 1)">
+                    @(Model.CurrentPage - 1)
+                </a>
+            </li>
+        }
+        <li class="page-item">
+            <a class="page-link" asp-action="Index" asp-route-currentPage="@(Model.CurrentPage)">
+                @(Model.CurrentPage)
+            </a>
+        </li>
+        @if (Model.CurrentPage * Model.PageSize < Model.Count)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-currentPage="@(Model.CurrentPage + 1)">
+                    @(Model.CurrentPage + 1)
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" aria-label="Следующий" asp-action="Index" asp-route-currentPage="@(Model.CurrentPage + 1)">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Следующий</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

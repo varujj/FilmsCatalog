@@ -28,7 +28,7 @@
                     <input asp-for="Poster" type="file">
                 </div>
                 <div>
-                    <img src='@(Model != null ? "\\" : "")@Model?.PosterUrl' class="poster-img" id="img" />
+                    <img src='@(Model?.PosterUrl != null ? "\\" : "")@Model?.PosterUrl' class="poster-img" id="img" />
                 </div>
             </div>
             <div class="form-group">

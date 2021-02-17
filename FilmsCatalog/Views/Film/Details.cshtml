@@ -1,0 +1,52 @@
+﻿@model FilmsCatalog.Application.Dtos.FilmDto
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h3>Детали фильма @Model.Name</h3>
+
+<hr />
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Идентификатор
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            Название
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Описание
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            Год
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class = "col-sm-2">
+            Режиссёр
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DirectorName)
+        </dd>
+        <dt class = "col-sm-2">
+            Постер
+        </dt>
+        <dd class = "col-sm-10">
+            <img src='@(Model.PosterUrl != null ? "\\" : "")@Model.PosterUrl' class="poster-img" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-success" asp-action="Index">К списку</a>
+</div>
