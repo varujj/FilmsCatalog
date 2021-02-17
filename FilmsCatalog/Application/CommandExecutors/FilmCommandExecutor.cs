@@ -4,6 +4,7 @@ using FilmsCatalog.Application.Querying;
 using FilmsCatalog.Application.Repositories;
 using FilmsCatalog.Application.Utility;
 using FilmsCatalog.Domain.Entities;
+using FilmsCatalog.Domain.Exceptions;
 using System.Threading.Tasks;
 
 namespace FilmsCatalog.Application.CommandExecutors
@@ -36,20 +37,24 @@ namespace FilmsCatalog.Application.CommandExecutors
             return FilmDto.FromFilm(film);
         }
 
-        public async Task UpsertFilm(FilmDto filmDto, string authorId)
+        public async Task UpsertFilm(FilmDto filmDto, string currentUserId)
         {
             var film = filmDto.Id > 0 
                        ? await _repository.GetAsync(filmDto.Id)
                        : Film.Create();
 
+            if (!film.IsNew && film.AuthorId != currentUserId)
+                throw new DomainException("Только автор может изменять фильм");
+
             film.Name = filmDto.Name;
             film.Description = filmDto.Description;
-            film.AuthorId = authorId;
+            film.AuthorId = currentUserId;
             film.Year = filmDto.Year;
             film.DirectorId = filmDto.DirectorId;
 
             if (filmDto.Poster != null)
             {
+                // Ideally, thumbnail should be created
                 film.PosterUrl = await _fileSaver.Save(film.Name, filmDto.Poster);
             }
 

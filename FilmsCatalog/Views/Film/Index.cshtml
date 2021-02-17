@@ -35,7 +35,10 @@
                 <td>@film.DirectorName</td>
                 <td>@film.Year</td>
                 <td>
-                    <a asp-controller="Film" asp-action="Upsert" asp-route-filmId="@film.Id" class="btn btn-outline-dark">Редактировать</a>
+                    @if (Model.CurrentUserId == film.AuthorId)
+                    {
+                        <a asp-controller="Film" asp-action="Upsert" asp-route-filmId="@film.Id" class="btn btn-outline-dark">Редактировать</a>
+                    }
                     <a asp-controller="Film" asp-action="Details" asp-route-filmId="@film.Id" class="btn btn-outline-info">Детали</a>
                 </td>
             </tr>

@@ -34,7 +34,8 @@ namespace FilmsCatalog.Controllers
                 Films = queryResult.Data,
                 Count = queryResult.Count,
                 CurrentPage = query.CurrentPage,
-                PageSize = query.PageSize
+                PageSize = query.PageSize,
+                CurrentUserId = this.CurrentUserId()
             };
 
             return View(viewModel);

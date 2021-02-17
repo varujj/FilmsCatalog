@@ -11,6 +11,7 @@ namespace FilmsCatalog.Application.Dtos
         public int Year { get; set; }
         public string DirectorName { get; set; }
         public int DirectorId { get; set; }
+        public string AuthorId { get; set; }
 
         public IFormFile Poster { get; set; }
         public string PosterUrl { get; set; }
@@ -25,7 +26,8 @@ namespace FilmsCatalog.Application.Dtos
                 Year = film.Year,
                 DirectorName = film.Director.Name,
                 DirectorId = film.DirectorId,
-                PosterUrl = film.PosterUrl
+                PosterUrl = film.PosterUrl,
+                AuthorId = film.AuthorId
             };
         }
     }
