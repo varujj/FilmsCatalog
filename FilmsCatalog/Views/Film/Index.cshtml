@@ -13,10 +13,12 @@
 
 <h2>Список фильмов</h2>
 
-
-<h4 class="new-film-heading">
-    <a class="btn btn-outline-success" asp-controller="Film" asp-action="Upsert">Создать</a>
-</h4>
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+    <h4 class="new-film-heading">
+        <a class="btn btn-outline-success" asp-controller="Film" asp-action="Upsert">Создать</a>
+    </h4>
+}
 
 <table class="table">
     <thead>

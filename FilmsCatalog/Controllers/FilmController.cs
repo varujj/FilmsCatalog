@@ -22,6 +22,7 @@ namespace FilmsCatalog.Controllers
             _commandExecutor = commandExecutor;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Index([FromQuery]EntityQuery query)
         {
@@ -67,6 +68,7 @@ namespace FilmsCatalog.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         [HttpGet("{filmId}")]
         public async Task<IActionResult> Details(int filmId)
         {

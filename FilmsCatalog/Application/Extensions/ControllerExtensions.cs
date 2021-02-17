@@ -7,7 +7,7 @@ namespace FilmsCatalog.Application.Extensions
     {
         public static string CurrentUserId(this Controller controller)
         {
-            return controller.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return controller.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
     }
 }
