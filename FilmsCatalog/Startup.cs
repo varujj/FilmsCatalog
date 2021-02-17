@@ -1,7 +1,9 @@
 using FilmsCatalog.Application.CommandExecutors;
+using FilmsCatalog.Application.Utility;
 using FilmsCatalog.Domain.Entities;
 using FilmsCatalog.Infrastructure.Persistence;
 using FilmsCatalog.Infrastructure.Persistence.Extensions;
+using FilmsCatalog.Infrastructure.Utility;
 using FilmsCatalog.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,6 +45,8 @@ namespace FilmsCatalog
             });
 
             services.AddTransient<DirectorCommandExecutor>();
+            services.AddTransient<FilmCommandExecutor>();
+            services.AddTransient<IFileSaver, LocalFileSaver>();
             services.AddSqlContext();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();

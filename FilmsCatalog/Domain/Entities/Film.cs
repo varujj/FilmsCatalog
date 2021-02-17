@@ -14,7 +14,17 @@ namespace FilmsCatalog.Domain.Entities
 
         public int Year { get; set; }
 
+        public int DirectorId { get; set; }
+        public string AuthorId { get; set; }
         public Director Director { get; set; }
         public User Author { get; set; }
+
+        public static Film Create()
+        {
+            return new Film
+            {
+                IsNew = true
+            };
+        }
     }
 }

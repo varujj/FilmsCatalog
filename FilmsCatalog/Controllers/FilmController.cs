@@ -1,29 +1,53 @@
-﻿using FilmsCatalog.Application.Dtos;
+﻿using FilmsCatalog.Application.CommandExecutors;
+using FilmsCatalog.Application.Dtos;
+using FilmsCatalog.Application.Extensions;
+using FilmsCatalog.Application.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FilmsCatalog.Controllers
 {
     [Authorize]
+    [Route("[controller]/[action]")]
     public class FilmController : Controller
     {
-        public IActionResult Create()
+        private readonly FilmCommandExecutor _commandExecutor;
+
+        public FilmController(FilmCommandExecutor commandExecutor)
         {
-            return View("Upsert");
+            _commandExecutor = commandExecutor;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            return View("Upsert", filmDto);
+        }
+
+        [HttpGet("{filmId?}")]
+        public async Task<IActionResult> Upsert(int? filmId)
+        {
+            var filmDto = filmId != null 
+                          ? await _commandExecutor.GetFilm(filmId.Value)
+                          : new FilmDto();
+
+            return View("Upsert", filmDto);
         }
 
         [HttpPost]
-        public IActionResult Create(FilmDto filmDto)
+        public async Task<IActionResult> Upsert(FilmDto filmDto)
         {
-            return View("Upsert");
-        }
+            var isValid = new FilmUpsertValidator().Validate(filmDto, out string msg);
 
-        public IActionResult Update(FilmDto filmDto)
-        {
+            if (!isValid)
+            {
+                ModelState.AddModelError("", msg);
+                return View("Upsert");
+            }
+
+            await _commandExecutor.UpsertFilm(filmDto, this.CurrentUserId());
+
             return View("Upsert");
         }
     }

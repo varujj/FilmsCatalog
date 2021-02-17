@@ -12,7 +12,7 @@ namespace FilmsCatalog.Infrastructure.Persistence
 {
     public class Repository<T> : IRepository<T> where T : AggregateRoot
     {
-        private readonly ApplicationDbContext _context;
+        protected readonly ApplicationDbContext _context;
 
         public Repository(ApplicationDbContext context)
         {
